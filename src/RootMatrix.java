@@ -9,7 +9,9 @@ public class RootMatrix {
 	int size;
 	int column = 0;
 	int row = 0;
-	int i = 1;
+	int root = 1;
+	int iter = 0;
+	boolean simetric = true;
 	
 	
 	/**
@@ -68,7 +70,7 @@ public class RootMatrix {
 			//Realizamos recurrencia para que se recorran todos las columnas de la primera fila en este if
 			getNumber();
 		}
-		
+ 		
 		else if(this.row < this.size) {
 			//Aumentamos la posicion de la fila en uno y reseteamos la de las columnas
 			this.row++;
@@ -84,6 +86,7 @@ public class RootMatrix {
 			
 			System.out.println("Matriz de raices cuadradas de la introducida: \n");
 			printMatrix(this.rootMatrix);
+			checkSimetry();
 		}
 	}
 	
@@ -91,20 +94,50 @@ public class RootMatrix {
 	 * Metodo que se encarga de calcular la aproximacion entera de la raiz de un numero
 	 */
 	public int getRoot(int value) {
-		if(this.i * this.i <= value) {
-			this.i++;
+		if(this.root * this.root <= value) {
+			this.root++;
 			return getRoot(value);
 		}
 		
 		else {
-			return (this.i-1);
+			return (this.root-1);
+		}
+	}
+	
+	/*
+	 * Metodo que se encarga de comprobar si la funcion de raices cuadradas resultante es simetrica
+	 */
+	public void checkSimetry() {		
+		if(this.row < this.size && this.column < this.size && simetric == true) {
+			if(this.rootMatrix[row][column] == this.rootMatrix[column][row]) {
+				simetric = true;
+			}
+			else {
+				simetric = false;
+			}
+			row++;
+			checkSimetry();
+		}
+		else if(simetric == true && this.iter < this.size) {
+			this.iter++;
+			row = this.iter;
+			column = this.iter;
+			checkSimetry();
+		}
+		else {
+			if(simetric == true) {
+				System.out.println("La matriz de raices enteras es simetrica");
+			}
+			else if (simetric == false) {
+				System.out.println("La matriz de raices enteras no es simetrica");
+			}
 		}
 	}
 	
 	/*
 	 * Metodo que se encarga de previsualizar la matriz por pantalla que se le pase como parametro
 	 */
-	public String printMatrix(int matrix[][]) {		
+	public void printMatrix(int matrix[][]) {		
 		if(this.column < this.size && this.row < this.size) {
 			System.out.print(" "+matrix[this.row][this.column]+" ");			
 			this.column++;
@@ -123,7 +156,6 @@ public class RootMatrix {
 			//Reseteamos los valores auxiliares que actuan como indice de columnas y filas
 			this.column = 0;
 			this.row = 0;
-		}
-		return "";
+		}		
 	}
 }
