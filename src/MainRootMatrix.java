@@ -2,7 +2,7 @@ import java.util.*;
 
 public class MainRootMatrix {
 
-	public static void main(String args[]) throws InterruptedException {
+	public static void main(String args[]){
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -14,9 +14,6 @@ public class MainRootMatrix {
 		RootMatrix rootMatrix = new RootMatrix(size);
 		
 		System.out.println("Matriz creada\n");
-		
-		
-		Thread.sleep(500);
 		
 	
 		System.out.println("Introduzca los valores de la matriz:\n");

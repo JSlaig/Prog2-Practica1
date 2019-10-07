@@ -9,6 +9,7 @@ public class RootMatrix {
 	int size;
 	int column = 0;
 	int row = 0;
+	int i = 1;
 	
 	
 	/**
@@ -24,7 +25,7 @@ public class RootMatrix {
 	/*
 	 * Metodo que usa el scanner para preguntar y asignar los valores de cada posicion de la matriz
 	*/ 
-	public void ask4Values() throws InterruptedException {	
+	public void ask4Values() {	
 		
 		if(this.row < this.size && this.column < this.size) {
 			System.out.print("Fila " +(this.row + 1) + " ");
@@ -51,10 +52,9 @@ public class RootMatrix {
 			this.row = 0;
 			scanner.close();
 			
-			Thread.sleep(500);
-			
 			System.out.println("Matriz introducida: \n");
 			printMatrix(this.matrix);
+			getNumber();
 		}		 
 	}
 	
@@ -66,13 +66,14 @@ public class RootMatrix {
 			this.rootMatrix[row][column] = getRoot(this.matrix[row][column]);
 			this.column++;
 			//Realizamos recurrencia para que se recorran todos las columnas de la primera fila en este if
-					
+			getNumber();
 		}
 		
 		else if(this.row < this.size) {
 			//Aumentamos la posicion de la fila en uno y reseteamos la de las columnas
 			this.row++;
-			this.column = 0;		
+			this.column = 0;
+			getNumber();
 		}
 		
 		else if(this.row == this.size) {
@@ -90,17 +91,20 @@ public class RootMatrix {
 	 * Metodo que se encarga de calcular la aproximacion entera de la raiz de un numero
 	 */
 	public int getRoot(int value) {
+		if(this.i * this.i <= value) {
+			this.i++;
+			return getRoot(value);
+		}
 		
-		
-		
-		
-		return value;
+		else {
+			return (this.i-1);
+		}
 	}
 	
 	/*
 	 * Metodo que se encarga de previsualizar la matriz por pantalla que se le pase como parametro
 	 */
-	public void printMatrix(int matrix[][]) {		
+	public String printMatrix(int matrix[][]) {		
 		if(this.column < this.size && this.row < this.size) {
 			System.out.print(" "+matrix[this.row][this.column]+" ");			
 			this.column++;
@@ -115,13 +119,11 @@ public class RootMatrix {
 			printMatrix(matrix);
 		}
 		
-		if(this.column == this.size && this.row == this.size) {			
+		if(this.row == this.size) {			
 			//Reseteamos los valores auxiliares que actuan como indice de columnas y filas
 			this.column = 0;
 			this.row = 0;
-		}		 
+		}
+		return "";
 	}
-	
-	
-
 }
